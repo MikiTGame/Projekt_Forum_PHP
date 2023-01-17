@@ -27,6 +27,15 @@
     if (!isset($_SESSION['id_user'])) {
         header("Location: login.php");
     }
+    if (array_key_exists('Strona_główna', $_POST)) {
+        header("Location: index.php");
+    }
+    if (array_key_exists('wyloguj', $_POST)) {
+        unset($_SESSION["id_user"]);
+        unset($_SESSION["accont_type"]);
+        unset($_SESSION["login"]);
+        header("Location: login.php");
+    }
 
     ?>
     <nav class="navbar">
@@ -39,10 +48,24 @@
             </nav>
         </form>
     </nav>
+    <section class="main">
+        <form method="post">
+            <input id="add_title" type="text" name="tytul" placeholder="Tytuł Posta" />
+            <textarea id="add_text" name="tresc" placeholder="Treść Posta" rows="20"> </textarea>
+            <input type="submit" value="Dodaj Post">
+        </form>
+    </section>
 
     <?php
-    if (array_key_exists('Strona_główna', $_POST)) {
-        header("Location: index.php");
+
+
+    if(array_key_exists('tytul',$_POST)){
+        $tytul = $_POST['tytul'];
+        $tresc = $_POST['tresc'];
+        $autor = $_SESSION['id_user'];
+        $q = "INSERT INTO `posty`(`tytul`, `tresc`, `autor`) VALUES ('".$tytul."','".$tresc."','".$autor."')";
+        $insert = mysqli_query($conn, $q);
+        header("Location: add_post.php");
     }
     ?>
 

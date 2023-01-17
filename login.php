@@ -39,7 +39,7 @@
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $login = $_POST['login'];
-      $password = $_POST['password'];
+      $password = hash('sha1',$_POST['password']);
       $result = mysqli_query($conn, "SELECT `id_user`, `login`, `password`, `accont_type` FROM `login`");
       while ($row = mysqli_fetch_assoc($result)) {
         if ($password == $row['password'] and $login == $row['login']) {

@@ -138,7 +138,7 @@ input {
     color: #dddddd;
 }
 
-.scomm input {
+.scomm input , .main form input , .main form textarea{
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.1);
     font-size: 18px;
@@ -152,4 +152,13 @@ input {
 
 .scomm_in{
     width: 70%;
+}
+
+#add_title{
+    width: 100%;
+}
+
+#add_text{
+    width: 100%;
+    resize: none;
 }

@@ -27,6 +27,15 @@
     if (!isset($_SESSION['id_user'])) {
         header("Location: login.php");
     }
+    if (array_key_exists('wyloguj', $_POST)) {
+        unset($_SESSION["id_user"]);
+        unset($_SESSION["accont_type"]);
+        unset($_SESSION["login"]);
+        header("Location: login.php");
+    }
+    if (array_key_exists('Dodaj_post', $_POST)) {
+        header("Location: add_post.php");
+    }
 
     ?>
     <nav class="navbar">
@@ -44,19 +53,7 @@
             </nav>
         </form>
     </nav>
-    <?php
-    if (array_key_exists('wyloguj', $_POST)) {
-        unset($_SESSION["id_user"]);
-        unset($_SESSION["accont_type"]);
-        unset($_SESSION["login"]);
-        header("Location: login.php");
-    }
-
-    if (array_key_exists('Dodaj_post', $_POST)) {
-        header("Location: add_post.php");
-    }
-    ?>
-
+    
     <section class="main">
         <?php
         $result = mysqli_query($conn, "SELECT `id_post`, `tytul`, `tresc`, `autor` FROM `posty`");
@@ -71,13 +68,6 @@
             echo '" name="id_post"></input><input type="submit" value="Czytaj dalej"></input></form></div>';
         }
         ?>
-    </section>
-
-    <section class="comm">
-        <form method="post">
-            <input type="text" name="komm" placeholder="Treść komentarza" />
-            <input type="submit"/>
-        </form>
     </section>
 </body>
 
